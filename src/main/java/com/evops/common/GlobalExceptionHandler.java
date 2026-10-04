@@ -22,6 +22,12 @@ public class GlobalExceptionHandler {
         return ApiResponse.fail(ex.getMessage());
     }
 
+    /** 文物修复权限已收紧：推进型动作（影像上传）停止 */
+    @ExceptionHandler(PermissionClosedException.class)
+    public ApiResponse<Void> handlePermissionClosed(PermissionClosedException ex) {
+        return ApiResponse.fail(ex.getMessage());
+    }
+
     /** 请求体校验失败 */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ApiResponse<Void> handleValidation(MethodArgumentNotValidException ex) {

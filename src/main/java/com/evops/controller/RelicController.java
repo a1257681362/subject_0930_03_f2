@@ -8,6 +8,7 @@ import com.evops.dto.RevokeRequest;
 import com.evops.entity.Relic;
 import com.evops.entity.RelicIntake;
 import com.evops.service.IntakeService;
+import com.evops.service.ImageArchiveService;
 import com.evops.service.LedgerService;
 import com.evops.service.LoanService;
 import com.evops.service.RelicService;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,17 +37,20 @@ public class RelicController {
     private final IntakeService intakeService;
     private final LoanService loanService;
     private final RepairService repairService;
+    private final ImageArchiveService imageArchiveService;
     private final LedgerService ledgerService;
 
     public RelicController(RelicService relicService,
                            IntakeService intakeService,
                            LoanService loanService,
                            RepairService repairService,
+                           ImageArchiveService imageArchiveService,
                            LedgerService ledgerService) {
         this.relicService = relicService;
         this.intakeService = intakeService;
         this.loanService = loanService;
         this.repairService = repairService;
+        this.imageArchiveService = imageArchiveService;
         this.ledgerService = ledgerService;
     }
 
@@ -60,9 +66,11 @@ public class RelicController {
         return ApiResponse.ok(relicService.list(query));
     }
 
-    /** 文物完整档案：基本信息 + 入藏(含照片) + 借还 + 修复项目 + 台账流水 */
+    /** 文物完整档案：基本信息 + 入藏(含照片) + 借还 + 修复项目 + 影像版本 + 台账流水 */
     @GetMapping("/{id}")
-    public ApiResponse<Map<String, Object>> get(@PathVariable Long id) {
+    public ApiResponse<Map<String, Object>> get(
+            @PathVariable Long id,
+            @RequestParam(value = "role", required = false) String role) {
         Relic relic = relicService.requireRelic(id);
         RelicIntake intake = intakeService.getByRelic(id);
 
@@ -76,6 +84,7 @@ public class RelicController {
         }
         dossier.put("loans", loanService.listByRelic(id));
         dossier.put("repairProjects", repairService.listByRelic(id));
+        dossier.put("imageVersions", imageArchiveService.listVersions(id, role));
         dossier.put("ledger", ledgerService.listByRelic(id));
         return ApiResponse.ok(dossier);
     }

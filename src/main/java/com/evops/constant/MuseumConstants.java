@@ -44,7 +44,35 @@ public final class MuseumConstants {
     public static final String ACTION_ACCEPT = "ACCEPT";
     public static final String ACTION_REVOKE = "REVOKE";
     public static final String ACTION_CANCEL = "CANCEL";
+    /** 影像归档：批量上传确认 / 影像作废 / 权限收紧 / 权限放开 */
+    public static final String ACTION_IMAGE_UPLOAD = "IMAGE_UPLOAD";
+    public static final String ACTION_IMAGE_VOID = "IMAGE_VOID";
+    public static final String ACTION_POLICY_TIGHTEN = "PERMIT_TIGHTEN";
+    public static final String ACTION_POLICY_RELAX = "PERMIT_RELAX";
 
     /** 起步幂等锁固定主键，全表只允许一行 */
     public static final int BOOTSTRAP_LOCK_ID = 1;
+
+    // --------------------------------------------------------------------
+    // museum-2 文物多角度影像归档
+    // --------------------------------------------------------------------
+
+    /** 影像视角：正面 / 背面 / 底部 / 细部 */
+    public static final String VIEW_FRONT = "FRONT";
+    public static final String VIEW_BACK = "BACK";
+    public static final String VIEW_BOTTOM = "BOTTOM";
+    public static final String VIEW_DETAIL = "DETAIL";
+
+    /** 影像引用 / 拍摄批次状态：有效 / 已作废（作废不是删除） */
+    public static final String IMAGE_ACTIVE = "ACTIVE";
+    public static final String IMAGE_VOID = "VOID";
+    public static final String BATCH_CONFIRMED = "CONFIRMED";
+
+    /** 权限策略表固定主键，全表只允许一行 */
+    public static final int POLICY_ID = 1;
+
+    /** 岗位（下载脱敏按岗位区分）：修复师 / 馆藏保管员 / 观摩访客 */
+    public static final String ROLE_RESTORER = "RESTORER";
+    public static final String ROLE_CURATOR = "CURATOR";
+    public static final String ROLE_VIEWER = "VIEWER";
 }
