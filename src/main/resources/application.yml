@@ -14,6 +14,10 @@ spring:
     time-zone: Asia/Shanghai
     serialization:
       write-dates-as-timestamps: false
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 100MB
   datasource:
     url: jdbc:h2:file:./data/evops;AUTO_SERVER=TRUE
     username: sa
@@ -32,6 +36,17 @@ mybatis-plus:
   type-aliases-package: com.evops
   configuration:
     map-underscore-to-camel-case: true
+
+# 文物多角度影像归档配置
+evops:
+  image:
+    # 内容寻址仓库根目录（按 sha256 分桶落盘，同一文件物理只存一份）
+    store-dir: ./data/image-store
+    # 归档分辨率下限：宽或高低于阈值的照片拒绝
+    min-width: 800
+    min-height: 600
+    # 单批次最多照片数
+    max-batch-size: 20
 
 logging:
   level:

@@ -8,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.stream.Collectors;
 
@@ -38,6 +39,12 @@ public class GlobalExceptionHandler {
     public ApiResponse<Void> handleDuplicateKey(DuplicateKeyException ex) {
         log.warn("唯一约束冲突: {}", ex.getMostSpecificCause().getMessage());
         return ApiResponse.fail("编号冲突：文物编号或项目编号已存在");
+    }
+
+    /** 上传影像超过 multipart 大小上限（异常在进入 Controller 前抛出） */
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ApiResponse<Void> handleMaxUploadSize(MaxUploadSizeExceededException ex) {
+        return ApiResponse.fail("上传失败：影像或批次大小超过系统上限");
     }
 
     @ExceptionHandler(Exception.class)

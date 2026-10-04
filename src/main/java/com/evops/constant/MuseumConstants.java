@@ -45,6 +45,32 @@ public final class MuseumConstants {
     public static final String ACTION_REVOKE = "REVOKE";
     public static final String ACTION_CANCEL = "CANCEL";
 
+    /** museum-2 影像台账动作 */
+    public static final String ACTION_IMAGE_ARCHIVE = "IMAGE_ARCHIVE";
+    public static final String ACTION_IMAGE_VOID = "IMAGE_VOID";
+
+    /** 影像视角：正面 / 背面 / 底部 / 细部 */
+    public static final String VIEW_FRONT = "FRONT";
+    public static final String VIEW_BACK = "BACK";
+    public static final String VIEW_BOTTOM = "BOTTOM";
+    public static final String VIEW_DETAIL = "DETAIL";
+
+    /** 影像批次 / 版本状态 */
+    public static final String IMAGE_ACTIVE = "ACTIVE";
+    public static final String IMAGE_VOIDED = "VOIDED";
+
+    /** 批量上传逐项结果：归档 / 去重回指 / 驳回 */
+    public static final String ITEM_ARCHIVED = "ARCHIVED";
+    public static final String ITEM_DEDUPED = "DEDUPED";
+    public static final String ITEM_REJECTED = "REJECTED";
+
+    /** 修复权限闸事件 */
+    public static final String PERMISSION_TIGHTEN = "TIGHTEN";
+    public static final String PERMISSION_RELAX = "RELAX";
+
+    /** 修复权限闸单例状态表固定主键 */
+    public static final int PERMISSION_STATE_ID = 1;
+
     /** 起步幂等锁固定主键，全表只允许一行 */
     public static final int BOOTSTRAP_LOCK_ID = 1;
 }

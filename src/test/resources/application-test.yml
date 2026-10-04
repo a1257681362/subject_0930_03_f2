@@ -8,6 +8,18 @@ spring:
     init:
       mode: always
       schema-locations: classpath:schema.sql
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB
+
+# 测试用低分辨率阈值：200x150 合法、1x1 非法
+evops:
+  image:
+    store-dir: ./target/test-image-store
+    min-width: 100
+    min-height: 100
+    max-batch-size: 20
 
 logging:
   level:
